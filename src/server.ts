@@ -1,11 +1,16 @@
-import express, { Request, Response } from "express";
+import express from "express";
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/", (request: Request, response: Response) => {
-  return response.json({ message: "Hello World!!!" });
+app.get("/", (request, response) => {
+  return response.json({ message: "Hello World!" });
+});
+
+app.post("/courses", (request, response) => {
+  const { name } = request.body;
+  return response.json({ name });
 });
 
 app.listen(3000, () => console.log("Server is running..."));
