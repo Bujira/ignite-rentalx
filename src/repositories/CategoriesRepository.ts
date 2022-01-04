@@ -17,13 +17,6 @@ class CategoriesRepository {
   }
 
   create({ name, description }: ICreateCategoryDTO) {
-    const categoryAlreadyExists = this.getByName({ name });
-
-    if (categoryAlreadyExists) {
-      const error = 1;
-      return error;
-    }
-
     const category = new Category();
 
     Object.assign(category, {
