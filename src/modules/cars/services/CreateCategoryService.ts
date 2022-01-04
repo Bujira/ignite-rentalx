@@ -6,7 +6,9 @@ interface ICreateCategoryDTO {
 }
 
 class CreateCategoryService {
-  constructor(private categoriesRepository: ICategoriesRepository) { }
+  constructor(private categoriesRepository: ICategoriesRepository) {
+    console.log();
+  }
   execute({ name, description }: ICreateCategoryDTO) {
     const categoryAlreadyExists = this.categoriesRepository.getByName({ name });
 
