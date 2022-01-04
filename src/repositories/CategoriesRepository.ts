@@ -5,6 +5,10 @@ interface ICreateCategoryDTO {
   description: string;
 }
 
+interface IGetCategoryDTO {
+  name: string;
+}
+
 class CategoriesRepository {
   private categories: Category[];
 
@@ -13,6 +17,13 @@ class CategoriesRepository {
   }
 
   create({ name, description }: ICreateCategoryDTO) {
+    const categoryAlreadyExists = this.getByName({ name });
+
+    if (categoryAlreadyExists) {
+      const error = 1;
+      return error;
+    }
+
     const category = new Category();
 
     Object.assign(category, {
@@ -23,6 +34,11 @@ class CategoriesRepository {
 
     this.categories.push(category);
 
+    return category;
+  }
+
+  getByName({ name }: IGetCategoryDTO) {
+    const category = this.categories.find((category) => category.name === name);
     return category;
   }
 

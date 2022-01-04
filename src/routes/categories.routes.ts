@@ -11,6 +11,10 @@ categoriesRoutes.post("/", (request, response) => {
 
   const result = categoriesRepository.create({ name, description });
 
+  if (result === 1) {
+    return response.status(400).json({ error: "Category Already Exists!" });
+  }
+
   return response.status(201).json({
     message: "Success!",
     result,
