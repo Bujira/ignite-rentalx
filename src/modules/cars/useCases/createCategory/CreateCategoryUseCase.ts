@@ -1,3 +1,4 @@
+import { Category } from "../../model/Category";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface ICreateCategoryDTO {
@@ -9,7 +10,7 @@ class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {
     console.log();
   }
-  execute({ name, description }: ICreateCategoryDTO) {
+  execute({ name, description }: ICreateCategoryDTO): Category {
     const categoryAlreadyExists = this.categoriesRepository.getByName({ name });
 
     if (categoryAlreadyExists) {

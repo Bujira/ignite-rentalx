@@ -1,3 +1,4 @@
+import { Category } from "../../model/Category";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 class GetCategoryUseCase {
@@ -5,7 +6,7 @@ class GetCategoryUseCase {
     console.log();
   }
 
-  execute() {
+  execute(): Category[] {
     const result = this.categoriesRepository.getAll();
 
     return result;
