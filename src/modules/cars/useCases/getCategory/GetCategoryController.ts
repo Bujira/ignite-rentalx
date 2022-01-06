@@ -4,7 +4,7 @@ import { GetCategoryUseCase } from "./GetCategoryUseCase";
 
 class GetCategoryController {
   constructor(private getCategoryUseCase: GetCategoryUseCase) {
-    console.log();
+    console.log(".");
   }
 
   handle(request: Request, response: Response): Response {

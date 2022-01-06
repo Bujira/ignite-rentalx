@@ -4,7 +4,7 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 class CreateCategoryController {
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {
-    console.log();
+    console.log(".");
   }
   handle(request: Request, response: Response): Response {
     const { name, description } = request.body;

@@ -3,7 +3,7 @@ import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 
 class GetCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {
-    console.log();
+    console.log(".");
   }
 
   execute(): Category[] {

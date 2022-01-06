@@ -1,3 +1,4 @@
+import { Specification } from "../../model/Specification";
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationDTO {
@@ -5,11 +6,11 @@ interface ICreateSpecificationDTO {
   description: string;
 }
 
-class CreateEspecificationService {
+class CreateSpecificationUseCase {
   constructor(private specificationRepository: ISpecificationsRepository) {
-    console.log();
+    console.log(".");
   }
-  execute({ name, description }: ICreateSpecificationDTO) {
+  execute({ name, description }: ICreateSpecificationDTO): Specification {
     const specificationAlreadyExists = this.specificationRepository.getByName({
       name,
     });
@@ -24,4 +25,4 @@ class CreateEspecificationService {
   }
 }
 
-export { CreateEspecificationService };
+export { CreateSpecificationUseCase };

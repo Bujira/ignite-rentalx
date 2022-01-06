@@ -8,7 +8,7 @@ interface ICreateCategoryDTO {
 
 class CreateCategoryUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {
-    console.log();
+    console.log(".");
   }
   execute({ name, description }: ICreateCategoryDTO): Category {
     const categoryAlreadyExists = this.categoriesRepository.getByName({ name });
