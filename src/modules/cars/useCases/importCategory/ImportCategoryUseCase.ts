@@ -17,7 +17,7 @@ class ImportCategoryUseCase {
     console.log(".");
   }
 
-  loadCategories({ file }: IImportCategoryDTO) {
+  loadCategories({ file }: IImportCategoryDTO): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
 
@@ -51,7 +51,23 @@ class ImportCategoryUseCase {
 
   async execute({ file }: IImportCategoryDTO): Promise<void> {
     const categories = await this.loadCategories({ file });
-    console.log("CONSOLE: ", categories);
+
+    categories.map((category) => {
+      const { name, description } = category;
+
+      const categoryAlreadyExists = this.categoriesRepository.getByName({
+        name,
+      });
+
+      if (categoryAlreadyExists) {
+        throw new Error("Category already exists!");
+      }
+
+      return this.categoriesRepository.create({
+        name,
+        description,
+      });
+    });
   }
 }
 
