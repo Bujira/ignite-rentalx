@@ -12,7 +12,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
     this.specifications = [];
   }
 
-  create({ name, description }: ICreateSpecificationDTO) {
+  create({ name, description }: ICreateSpecificationDTO): Specification {
     const specification = new Specification();
 
     Object.assign(specification, {
@@ -26,7 +26,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
     return specification;
   }
 
-  getByName({ name }: IGetSpecificationByNameDTO) {
+  getByName({ name }: IGetSpecificationByNameDTO): Specification {
     const specification = this.specifications.find(
       (specification) => specification.name === name
     );
