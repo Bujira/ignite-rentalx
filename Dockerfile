@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . /users/yurifcorrea/app/
 
-EXPOSE 3333
+EXPOSE 3000
 
 CMD ["npm", "run", "dev"] 
