@@ -7,8 +7,8 @@ class GetCategoryController {
     console.log(".");
   }
 
-  handle(request: Request, response: Response): Response {
-    const result = this.getCategoryUseCase.execute();
+  async handle(request: Request, response: Response): Promise<Response> {
+    const result = await this.getCategoryUseCase.execute();
     return response.status(200).json({
       message: "Success!",
       result,

@@ -6,8 +6,8 @@ class GetCategoryUseCase {
     console.log(".");
   }
 
-  execute(): Category[] {
-    const result = this.categoriesRepository.getAll();
+  async execute(): Promise<Category[]> {
+    const result = await this.categoriesRepository.getAll();
 
     return result;
   }

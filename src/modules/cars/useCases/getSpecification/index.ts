@@ -1,14 +1,16 @@
-import { specificationsRepository } from "..";
-
+import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
 import { GetSpecificationController } from "./GetSpecificationController";
 import { GetSpecificationUseCase } from "./GetSpecificationUseCase";
 
-const getSpecificationUseCase = new GetSpecificationUseCase(
-  specificationsRepository
-);
+export default (): GetSpecificationController => {
+  const specificationsRepository = new SpecificationsRepository();
+  const getSpecificationUseCase = new GetSpecificationUseCase(
+    specificationsRepository
+  );
 
-const getSpecificationController = new GetSpecificationController(
-  getSpecificationUseCase
-);
+  const getSpecificationController = new GetSpecificationController(
+    getSpecificationUseCase
+  );
 
-export { getSpecificationController };
+  return getSpecificationController;
+};

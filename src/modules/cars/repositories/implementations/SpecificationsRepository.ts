@@ -18,7 +18,7 @@ class SpecificationsRepository implements ISpecificationsRepository {
     Object.assign(specification, {
       name,
       description,
-      createdAt: new Date(),
+      created_at: new Date(),
     });
 
     this.specifications.push(specification);

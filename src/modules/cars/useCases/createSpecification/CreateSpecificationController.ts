@@ -7,10 +7,10 @@ class CreateSpecificationController {
     console.log(".");
   }
 
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
 
-    const result = this.createSpecificationsUseCase.execute({
+    const result = await this.createSpecificationsUseCase.execute({
       name,
       description,
     });

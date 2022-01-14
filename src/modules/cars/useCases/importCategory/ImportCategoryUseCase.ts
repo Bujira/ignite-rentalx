@@ -53,10 +53,10 @@ class ImportCategoryUseCase {
   async execute({ file }: IImportCategoryDTO): Promise<void> {
     const categories = await this.loadCategories({ file });
 
-    categories.map((category) => {
+    categories.map(async (category) => {
       const { name, description } = category;
 
-      const categoryAlreadyExists = this.categoriesRepository.getByName({
+      const categoryAlreadyExists = await this.categoriesRepository.getByName({
         name,
       });
 
