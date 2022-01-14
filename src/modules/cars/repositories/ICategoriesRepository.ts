@@ -1,4 +1,4 @@
-import { Category } from "../model/Category";
+import { Category } from "../entities/Category";
 
 interface ICreateCategoryDTO {
   name: string;
@@ -10,9 +10,9 @@ interface IGetCategoryByNameDTO {
 }
 
 interface ICategoriesRepository {
-  create({ name, description }: ICreateCategoryDTO): Category;
-  getByName({ name }: IGetCategoryByNameDTO): Category;
-  getAll(): Category[];
+  create({ name, description }: ICreateCategoryDTO): Promise<Category>;
+  getByName({ name }: IGetCategoryByNameDTO): Promise<Category>;
+  getAll(): Promise<Category[]>;
 }
 
 export { ICategoriesRepository, ICreateCategoryDTO, IGetCategoryByNameDTO };
