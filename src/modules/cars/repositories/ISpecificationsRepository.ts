@@ -1,4 +1,4 @@
-import { Category } from "../entities/Category";
+import { Specification } from "../entities/Specification";
 
 interface ICreateSpecificationDTO {
   name: string;
@@ -10,9 +10,12 @@ interface IGetSpecificationByNameDTO {
 }
 
 interface ISpecificationsRepository {
-  create({ name, description }: ICreateSpecificationDTO): Category;
-  getByName({ name }: IGetSpecificationByNameDTO): Category;
-  getAll(): Category[];
+  create({
+    name,
+    description,
+  }: ICreateSpecificationDTO): Promise<Specification>;
+  getByName({ name }: IGetSpecificationByNameDTO): Promise<Specification>;
+  getAll(): Promise<Specification[]>;
 }
 
 export {

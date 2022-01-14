@@ -6,8 +6,10 @@ class GetSpecificationUseCase {
     console.log(".");
   }
 
-  execute(): Specification[] {
-    return this.specificationsRepository.getAll();
+  async execute(): Promise<Specification[]> {
+    const result = await this.specificationsRepository.getAll();
+
+    return result;
   }
 }
 

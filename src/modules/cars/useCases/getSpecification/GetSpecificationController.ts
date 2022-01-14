@@ -7,8 +7,8 @@ class GetSpecificationController {
     console.log(".");
   }
 
-  handle(request: Request, response: Response): Response {
-    const result = this.getSpecificationUseCase.execute();
+  async handle(request: Request, response: Response): Promise<Response> {
+    const result = await this.getSpecificationUseCase.execute();
     return response.status(200).json({
       message: "Success!",
       result,
