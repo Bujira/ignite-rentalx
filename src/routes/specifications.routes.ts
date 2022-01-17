@@ -1,16 +1,15 @@
 import { Router } from "express";
 
-import createSpecificationController from "../modules/cars/useCases/createSpecification";
-import getSpecificationController from "../modules/cars/useCases/getSpecification";
+import { CreateSpecificationController } from "../modules/cars/useCases/createSpecification/CreateSpecificationController";
+import { GetSpecificationController } from "../modules/cars/useCases/getSpecification/GetSpecificationController";
 
 const specificationsRoutes = Router();
 
-specificationsRoutes.post("/", (request, response) => {
-  return createSpecificationController().handle(request, response);
-});
+const createSpecificationController = new CreateSpecificationController();
+const getSpecificationController = new GetSpecificationController();
 
-specificationsRoutes.get("/", (request, response) => {
-  return getSpecificationController().handle(request, response);
-});
+specificationsRoutes.post("/", createSpecificationController.handle);
+
+specificationsRoutes.get("/", getSpecificationController.handle);
 
 export { specificationsRoutes };
