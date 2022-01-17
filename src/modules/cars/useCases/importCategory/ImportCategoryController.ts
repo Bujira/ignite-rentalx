@@ -11,7 +11,7 @@ class ImportCategoryController {
 
     await importCategoryUseCase.execute({ file });
 
-    return response.json({ messsage: "Success!" });
+    return response.status(201).json({ messsage: "Success!" });
   }
 }
 

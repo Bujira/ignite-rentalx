@@ -20,15 +20,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                },
+                "$ref": "#/definitions/Category",
                 "example": {
                   "name": "category name sample",
                   "description": "category description sample"
@@ -43,15 +35,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/definitions/Category"
                 }
               }
             }
@@ -75,20 +59,124 @@
                 "shcema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      }
-                    }
+                    "$ref": "#/definitions/Category"
                   }
                 }
               }
             }
           }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Upload Categories",
+        "description": "Upload categories from an external source/file",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success!"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Create Specification",
+        "description": "Create a new car specification (manual, automatic, four-wheel drive, etc.)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Specification",
+                "example": {
+                  "name": "specification name sample",
+                  "description": "specification description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Specification"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Specification already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get All Specifications",
+        "description": "List all car specifications already registered in the data base",
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
         }
       }
     }
