@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import { Category } from "../../entities/Category";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
@@ -6,8 +8,12 @@ interface ICreateCategoryDTO {
   description: string;
 }
 
+@injectable()
 class CreateCategoryUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoriesRepository
+  ) {
     console.log(".");
   }
   async execute({ name, description }: ICreateCategoryDTO): Promise<Category> {
