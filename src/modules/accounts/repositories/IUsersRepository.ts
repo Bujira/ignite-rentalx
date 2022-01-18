@@ -1,6 +1,6 @@
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
-import { IGetUserByEmailDTO } from "../dtos/IGetUserByEmailDTO";
 import { User } from "../entities/User";
+import { ICreateUserDTO } from "../typings/ICreateUserDTO";
+import { IGetUserByEmailDTO } from "../typings/IGetUserByEmailDTO";
 
 interface IUsersRepository {
   create({
