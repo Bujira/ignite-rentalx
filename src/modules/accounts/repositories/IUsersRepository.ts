@@ -4,10 +4,10 @@ import { User } from "../entities/User";
 interface IUsersRepository {
   create({
     name,
-    username,
     password,
     email,
     drivers_license,
+    avatar,
   }: ICreateUserDTO): Promise<User>;
 }
 

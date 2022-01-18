@@ -15,17 +15,17 @@ class CreateUserUseCase {
 
   async execute({
     name,
-    username,
     password,
     email,
     drivers_license,
+    avatar,
   }: ICreateUserDTO): Promise<User> {
     const user = this.usersRepository.create({
       name,
-      username,
       password,
       email,
       drivers_license,
+      avatar,
     });
     return user;
   }
