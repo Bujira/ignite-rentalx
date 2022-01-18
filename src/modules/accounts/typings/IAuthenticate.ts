@@ -11,4 +11,8 @@ interface IAuthenticateResponse {
   token: string;
 }
 
-export { IAuthenticateRequest, IAuthenticateResponse };
+interface IAuthenticatePayload {
+  sub: string;
+}
+
+export { IAuthenticateRequest, IAuthenticateResponse, IAuthenticatePayload };
