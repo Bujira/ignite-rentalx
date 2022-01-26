@@ -10,13 +10,11 @@ import {
 } from "../../typings/IAuthenticate";
 
 @injectable()
-class AuthenticateUseCase {
+class AuthenticateUserUseCase {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
   async execute({
     email,
     password,
@@ -27,7 +25,7 @@ class AuthenticateUseCase {
       throw new AppError("Invalid user or password!");
     }
 
-    const passwordMatch = compare(password, user.password);
+    const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
       throw new AppError("Invalid user or password");
@@ -50,4 +48,4 @@ class AuthenticateUseCase {
   }
 }
 
-export { AuthenticateUseCase };
+export { AuthenticateUserUseCase };

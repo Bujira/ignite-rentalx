@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
@@ -11,9 +12,7 @@ class CreateUserUseCase {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
 
   async execute({
     name,

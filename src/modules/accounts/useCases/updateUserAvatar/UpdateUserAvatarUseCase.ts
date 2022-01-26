@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { inject, injectable } from "tsyringe";
 
 import { deleteFile } from "../../../../utils/file";
@@ -10,9 +11,7 @@ class UpdateUserAvatarUseCase {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
   async execute({ user_id, avatar_file }: IUpdateUserAvatarDTO): Promise<User> {
     const user = await this.usersRepository.getById({ id: user_id });
 

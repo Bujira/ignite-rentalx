@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "../../../../errors/AppError";
@@ -14,9 +15,7 @@ class CreateCategoryUseCase {
   constructor(
     @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
   async execute({ name, description }: ICreateCategoryDTO): Promise<Category> {
     const categoryAlreadyExists = await this.categoriesRepository.getByName({
       name,

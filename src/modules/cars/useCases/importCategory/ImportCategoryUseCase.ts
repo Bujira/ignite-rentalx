@@ -19,9 +19,7 @@ class ImportCategoryUseCase {
   constructor(
     @inject("CategoriesRepository")
     private categoriesRepository: ICategoriesRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
 
   loadCategories({ file }: IImportCategoryDTO): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {

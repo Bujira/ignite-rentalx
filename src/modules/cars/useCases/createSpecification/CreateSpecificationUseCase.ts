@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "../../../../errors/AppError";
@@ -14,9 +15,7 @@ class CreateSpecificationUseCase {
   constructor(
     @inject("SpecificationsRepository")
     private specificationRepository: ISpecificationsRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
   async execute({
     name,
     description,

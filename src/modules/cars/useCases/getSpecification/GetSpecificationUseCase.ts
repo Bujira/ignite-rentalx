@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { inject, injectable } from "tsyringe";
 
 import { Specification } from "../../entities/Specification";
@@ -8,9 +9,7 @@ class GetSpecificationUseCase {
   constructor(
     @inject("SpecificationsRepository")
     private specificationsRepository: SpecificationsRepository
-  ) {
-    console.log(".");
-  }
+  ) { }
 
   async execute(): Promise<Specification[]> {
     const result = await this.specificationsRepository.getAll();
