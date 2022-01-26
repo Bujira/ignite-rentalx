@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
+import { AppError } from "@errors/AppError";
+import { Specification } from "@modules/cars/entities/Specification";
 import { inject, injectable } from "tsyringe";
 
-import { AppError } from "../../../../errors/AppError";
-import { Specification } from "../../entities/Specification";
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationDTO {

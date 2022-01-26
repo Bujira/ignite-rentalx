@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
+import { AppError } from "@errors/AppError";
+import { User } from "@modules/accounts/entities/User";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
-import { AppError } from "../../../../errors/AppError";
-import { User } from "../../entities/User";
-import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { ICreateUserDTO } from "../../typings/ICreateUserDTO";
 
 @injectable()

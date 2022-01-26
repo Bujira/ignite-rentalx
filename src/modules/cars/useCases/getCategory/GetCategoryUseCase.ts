@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { Category } from "@modules/cars/entities/Category";
 import { inject, injectable } from "tsyringe";
 
-import { Category } from "../../entities/Category";
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 @injectable()
