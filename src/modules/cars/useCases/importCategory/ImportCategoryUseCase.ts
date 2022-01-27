@@ -1,7 +1,9 @@
-import { AppError } from "@errors/AppError";
+/* eslint-disable prettier/prettier */
 import { parse } from "csv-parse";
 import fs from "fs";
 import { inject, injectable } from "tsyringe";
+
+import { AppError } from "@shared/errors/AppError";
 
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 

@@ -1,4 +1,4 @@
-import { User } from "../../entities/User";
+import { User } from "../../infra/typeorm/entities/User";
 import { ICreateUserDTO } from "../../typings/ICreateUserDTO";
 import { IGetUserByEmailDTO } from "../../typings/IGetUserByEmailDTO";
 import { IGetUserByIdDTO } from "../../typings/IGetUserByIdDTO";

@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { AppError } from "@errors/AppError";
-import { Specification } from "@modules/cars/entities/Specification";
+import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
 import { inject, injectable } from "tsyringe";
+
+import { AppError } from "@shared/errors/AppError";
 
 import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
 

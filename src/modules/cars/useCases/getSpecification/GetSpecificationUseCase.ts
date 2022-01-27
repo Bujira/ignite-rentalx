@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Specification } from "@modules/cars/entities/Specification";
+import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
+import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { inject, injectable } from "tsyringe";
 
-import { SpecificationsRepository } from "../../repositories/implementations/SpecificationsRepository";
 
 @injectable()
 class GetSpecificationUseCase {

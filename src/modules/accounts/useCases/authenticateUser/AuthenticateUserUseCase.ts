@@ -1,8 +1,10 @@
-import { AppError } from "@errors/AppError";
+/* eslint-disable prettier/prettier */
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
+
+import { AppError } from "@shared/errors/AppError";
 
 import {
   IAuthenticateRequest,
