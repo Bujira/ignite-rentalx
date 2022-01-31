@@ -9,7 +9,6 @@ RN => Business Rules
 # Registering a Car
 **RF**
 It should be possible to register a new car in the database.
-It should be able to list all car categories.
 
 **RN**
 Should not be possible to register more than one car with the same license plate.
