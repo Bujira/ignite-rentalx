@@ -4,6 +4,8 @@ import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "@shared/errors/AppError";
+
 // @injectable()
 class CreateCarUseCase {
   constructor(
@@ -20,6 +22,12 @@ class CreateCarUseCase {
     brand,
     category_id,
   }: ICreateCarDTO): Promise<Car> {
+    const carAlreadyExists = await this.carsRepository.getByLicensePlate({ license_plate });
+
+    if (carAlreadyExists) {
+      throw new AppError("Car already exists!");
+    }
+
     const result = await this.carsRepository.create({
       name,
       description,

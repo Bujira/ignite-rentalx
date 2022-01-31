@@ -35,6 +35,8 @@ class Car {
   constructor() {
     if (!this.id) {
       this.id = uuid();
+      this.available = true;
+      this.created_at = new Date();
     }
   }
 }

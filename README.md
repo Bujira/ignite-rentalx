@@ -8,13 +8,12 @@ RNF => Non Functional Requisites
 RN => Business Rules
 # Registering a Car
 **RF**
-It should be possible to register a new car in the database.
+[x] It should be possible to register a new car in the database.
 
 **RN**
-Should not be possible to register more than one car with the same license plate.
-Should not be able to change a car's license plate, once the car is registered.
-Every car should be registered as available for rental.
-Only admin users can register a car.
+[x] Should not be possible to register more than one car with the same license plate.
+[x] Every car should be registered as available for rental by default.
+[] Only admin users can register a car. *
 
 # Listing Registered Cars
 **RF**

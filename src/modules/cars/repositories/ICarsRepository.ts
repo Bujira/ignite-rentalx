@@ -1,5 +1,6 @@
 import { Car } from "../infra/typeorm/entities/Car";
 import { ICreateCarDTO } from "../typings/ICreateCarDTO";
+import { IGetByLicensePlateDTO } from "../typings/IGetByLicensePlateDTO";
 
 interface ICarsRepository {
   create({
@@ -11,6 +12,7 @@ interface ICarsRepository {
     brand,
     category_id,
   }: ICreateCarDTO): Promise<Car>;
+  getByLicensePlate({ license_plate }: IGetByLicensePlateDTO): Promise<Car>;
 }
 
 export { ICarsRepository };
