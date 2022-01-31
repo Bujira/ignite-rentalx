@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateUsers1642445305173 implements MigrationInterface {
+export class CreateCars1643646989358 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "users",
+                name: "cars",
                 columns: [
                     {
                         name: "id",
@@ -17,30 +17,34 @@ export class CreateUsers1642445305173 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "username",
-                        type: "varchar",
-                        isUnique: true,
-                    },
-                    {
-                        name: "password",
+                        name: "description",
                         type: "varchar",
                     },
                     {
-                        name: "email",
-                        type: "varchar",
+                        name: "daily_rate",
+                        type: "numeric",
                     },
                     {
-                        name: "drivers_license",
-                        type: "varchar",
-                    },
-                    {
-                        name: "isAdmin",
+                        name: "available",
                         type: "boolean",
-                        default: false,
+                        default: true,
                     },
                     {
-                        name: "avatar",
+                        name: "license_plate",
                         type: "varchar",
+                    },
+                    {
+                        name: "fine_amount",
+                        type: "numeric",
+                    },
+                    {
+                        name: "brand",
+                        type: "varchar",
+                    },
+                    {
+                        name: "category_id",
+                        type: "uuid",
+                        isNullable: true,
                     },
                     {
                         name: "created_at",
@@ -48,11 +52,21 @@ export class CreateUsers1642445305173 implements MigrationInterface {
                         default: "now()",
                     },
                 ],
+                foreignKeys: [
+                    {
+                        name: "FK_Car_Category",
+                        referencedTableName: "categories",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["category_id"],
+                        onDelete: "SET NULL",
+                        onUpdate: "SET NULL",
+                    }
+                ]
             })
-        );
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable("cars");
     }
 }

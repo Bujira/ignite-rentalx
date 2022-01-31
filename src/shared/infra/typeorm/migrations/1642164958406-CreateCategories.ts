@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateCategories1642164958406 implements MigrationInterface {
