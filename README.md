@@ -13,7 +13,7 @@ RN => Business Rules
 **RN**
 [x] Should not be possible to register more than one car with the same license plate.
 [x] Every car should be registered as available for rental by default.
-[] Only admin users can register a car. *
+[x] Only admin users can register a car.
 
 # Listing Registered Cars
 **RF**
