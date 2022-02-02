@@ -1,5 +1,6 @@
 import { Car } from "../infra/typeorm/entities/Car";
 import { ICreateCarDTO } from "../typings/ICreateCarDTO";
+import { IGetByIdDTO } from "../typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "../typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "../typings/IGetCarDTO";
 
@@ -14,6 +15,7 @@ interface ICarsRepository {
     category_id,
   }: ICreateCarDTO): Promise<Car>;
   getByLicensePlate({ license_plate }: IGetByLicensePlateDTO): Promise<Car>;
+  getById({ car_id }: IGetByIdDTO): Promise<Car>;
   getAllAvailable({ name, brand, category_id }: IGetCarDTO): Promise<Car[]>;
 }
 

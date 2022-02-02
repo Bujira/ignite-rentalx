@@ -25,11 +25,9 @@ It should be possible to list all available cars by brand.
 **RN**
 An user does not need to be logged in to list all available cars.
 
-# Registering Car Specification
+# Registering Car Specifications
 **RF**
 It should be possible to register a new specification for a car.
-It should be possible to list all the specifications for a car.
-It should be possible to list all cars with a chosen specification.
 
 **RN**
 Should not be able to register a specification for a non existing car.

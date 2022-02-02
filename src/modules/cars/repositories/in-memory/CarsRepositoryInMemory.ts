@@ -1,5 +1,6 @@
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
+import { IGetByIdDTO } from "@modules/cars/typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "@modules/cars/typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "@modules/cars/typings/IGetCarDTO";
 
@@ -37,6 +38,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
     license_plate,
   }: IGetByLicensePlateDTO): Promise<Car> {
     return this.cars.find((car) => car.license_plate === license_plate);
+  }
+
+  async getById({ car_id }: IGetByIdDTO): Promise<Car> {
+    return this.cars.find((car) => car.id === car_id);
   }
 
   async getAllAvailable({

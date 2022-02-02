@@ -1,5 +1,6 @@
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
+import { IGetByIdDTO } from "@modules/cars/typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "@modules/cars/typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "@modules/cars/typings/IGetCarDTO";
 import { getRepository, Repository } from "typeorm";
@@ -40,6 +41,12 @@ class CarsRepository implements ICarsRepository {
     license_plate,
   }: IGetByLicensePlateDTO): Promise<Car> {
     const car = await this.repository.findOne({ license_plate });
+
+    return car;
+  }
+
+  async getById({ car_id }: IGetByIdDTO): Promise<Car> {
+    const car = await this.repository.findOne({ id: car_id });
 
     return car;
   }
