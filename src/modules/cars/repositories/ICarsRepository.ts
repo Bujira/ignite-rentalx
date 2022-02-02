@@ -13,6 +13,7 @@ interface ICarsRepository {
     fine_amount,
     brand,
     category_id,
+    specifications,
   }: ICreateCarDTO): Promise<Car>;
   getByLicensePlate({ license_plate }: IGetByLicensePlateDTO): Promise<Car>;
   getById({ car_id }: IGetByIdDTO): Promise<Car>;

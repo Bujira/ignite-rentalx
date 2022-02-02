@@ -3,6 +3,7 @@ import {
   ISpecificationsRepository,
   IGetSpecificationByNameDTO,
 } from "@modules/cars/repositories/ISpecificationsRepository";
+import { IGetSpecificationsByIds } from "@modules/cars/typings/IGetSpeciticationsByIdsDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { Specification } from "../entities/Specification";
@@ -33,6 +34,10 @@ class SpecificationsRepository implements ISpecificationsRepository {
   }: IGetSpecificationByNameDTO): Promise<Specification> {
     const specification = await this.repository.findOne({ name });
     return specification;
+  }
+
+  getByIds({ ids }: IGetSpecificationsByIds): Promise<Specification[]> {
+    throw new Error("Method not implemented.");
   }
 
   async getAll(): Promise<Specification[]> {
