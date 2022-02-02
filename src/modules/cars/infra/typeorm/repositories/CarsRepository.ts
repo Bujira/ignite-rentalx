@@ -1,6 +1,7 @@
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
 import { IGetByLicensePlateDTO } from "@modules/cars/typings/IGetByLicensePlateDTO";
+import { IGetCarDTO } from "@modules/cars/typings/IGetCarDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { Car } from "../entities/Car";
@@ -43,8 +44,28 @@ class CarsRepository implements ICarsRepository {
     return car;
   }
 
-  async getAllAvailable(): Promise<Car[]> {
-    const cars = await this.repository.find();
+  async getAllAvailable({
+    name,
+    brand,
+    category_id,
+  }: IGetCarDTO): Promise<Car[]> {
+    const carsQuery = await this.repository
+      .createQueryBuilder("c")
+      .where("available = :available", { available: true });
+
+    if (name) {
+      carsQuery.andWhere("c.name = :name", { name });
+    }
+
+    if (brand) {
+      carsQuery.andWhere("c.brand = :brand", { brand });
+    }
+
+    if (category_id) {
+      carsQuery.andWhere("c.category_id = :category_id", { category_id });
+    }
+
+    const cars = await carsQuery.getMany();
 
     return cars;
   }

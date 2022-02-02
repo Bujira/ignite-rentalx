@@ -17,6 +17,6 @@ carsRoutes.post(
   createCarController.handle
 );
 
-carsRoutes.get("/", getCarController.handle);
+carsRoutes.get("/available", getCarController.handle);
 
 export { carsRoutes };
