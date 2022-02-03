@@ -6,6 +6,7 @@ import { IGetCarDTO } from "../typings/IGetCarDTO";
 
 interface ICarsRepository {
   create({
+    id,
     name,
     description,
     daily_rate,

@@ -4,7 +4,7 @@ import {
   IGetSpecificationByNameDTO,
 } from "@modules/cars/repositories/ISpecificationsRepository";
 import { IGetSpecificationsByIds } from "@modules/cars/typings/IGetSpeciticationsByIdsDTO";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Repository, TreeChildren } from "typeorm";
 
 import { Specification } from "../entities/Specification";
 
@@ -36,8 +36,10 @@ class SpecificationsRepository implements ISpecificationsRepository {
     return specification;
   }
 
-  getByIds({ ids }: IGetSpecificationsByIds): Promise<Specification[]> {
-    throw new Error("Method not implemented.");
+  async getByIds({ ids }: IGetSpecificationsByIds): Promise<Specification[]> {
+    const specifications = await this.repository.findByIds(ids);
+
+    return specifications;
   }
 
   async getAll(): Promise<Specification[]> {

@@ -1,4 +1,5 @@
 import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController";
+import { CreateCarSpecificationController } from "@modules/cars/useCases/createCarSpecification/CreateCarSpecificationController";
 import { GetCarController } from "@modules/cars/useCases/getCar/GetCarController";
 import { Router } from "express";
 
@@ -9,6 +10,7 @@ const carsRoutes = Router();
 
 const createCarController = new CreateCarController();
 const getCarController = new GetCarController();
+const createCarSpecificationController = new CreateCarSpecificationController();
 
 carsRoutes.post(
   "/",
@@ -18,5 +20,12 @@ carsRoutes.post(
 );
 
 carsRoutes.get("/available", getCarController.handle);
+
+carsRoutes.post(
+  "/specifications/:id",
+  ensureAutehnticated,
+  ensureAdmin,
+  createCarSpecificationController.handle
+);
 
 export { carsRoutes };

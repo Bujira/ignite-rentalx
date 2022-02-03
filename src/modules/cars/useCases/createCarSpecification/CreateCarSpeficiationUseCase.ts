@@ -12,6 +12,7 @@ class CreateCarSpecificationUseCase {
   constructor(
     @inject("CarsRepository")
     private carsRepository: ICarsRepository,
+    @inject("SpecificationsRepository")
     private specificationsRepository: ISpecificationsRepository
   ) { }
   async execute({
@@ -28,9 +29,9 @@ class CreateCarSpecificationUseCase {
 
     car.specifications = specifications;
 
-    const result = await this.carsRepository.create(car);
+    await this.carsRepository.create(car);
 
-    return result;
+    return car;
   }
 }
 
