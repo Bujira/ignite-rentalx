@@ -37,7 +37,6 @@ Only admin users can register a specification for a car.
 # Registering Car Images
 **RF**
 It should be possible to register a new image for a car.
-It should be possible to list all images for a given car.
 
 **RNF**
 Use multer for uploading files.
