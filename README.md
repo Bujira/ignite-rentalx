@@ -27,16 +27,16 @@ An user does not need to be logged in to list all available cars.
 
 # Registering Car Specifications
 **RF**
-It should be possible to register a new specification for a car.
+[x] It should be possible to register a new specification for a car.
 
 **RN**
-Should not be able to register a specification for a non existing car.
-Should not be able to register an existing specification for the same car.
-Only admin users can register a specification for a car.
+[x] Should not be able to register a specification for a non existing car.
+[x] Should not be able to register an existing specification for the same car.
+[x] Only admin users can register a specification for a car.
 
 # Registering Car Images
 **RF**
-It should be possible to register a new image for a car.
+[x] It should be possible to register a new image for a car.
 
 **RNF**
 Use multer for uploading files.
@@ -44,7 +44,7 @@ Use multer for uploading files.
 **RN**
 Should not be able to register an image for a non existing car.
 It should be possible to register multiple images for the same car.
-Only admin users can register an image for a car.
+[x] Only admin users can register an image for a car.
 
 # Renting a Car
 
