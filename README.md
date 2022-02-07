@@ -39,7 +39,7 @@ An user does not need to be logged in to list all available cars.
 [x] It should be possible to register a new image for a car.
 
 **RNF**
-Use multer for uploading files.
+[x] Use multer for uploading files.
 
 **RN**
 Should not be able to register an image for a non existing car.
