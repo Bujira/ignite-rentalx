@@ -49,9 +49,9 @@ It should be possible to register multiple images for the same car.
 # Renting a Car
 
 **RF**
-It should be possible to register a new car rental.
+[x] It should be possible to register a new car rental.
 
 **RN**
 The minimun duration of a rental must be 24 hours.
-Should not be able to register a new car rental for an user already renting a car.
-Should not be able to register a new car rental for a non available car.
+[x] Should not be able to register a new car rental for an user already renting a car.
+[x] Should not be able to register a new car rental for a non available car.
