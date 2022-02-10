@@ -39,7 +39,6 @@ class Rental {
   constructor() {
     if (!this.id) {
       this.id = uuid();
-      this.end_date = null;
     }
   }
 }

@@ -21,6 +21,7 @@ describe("Create Rental", () => {
     });
 
     expect(rental).toHaveProperty("id");
+    expect(rental).toHaveProperty("start_date");
   });
 
   it("Should not be able to rent a car that is already being rented", async () => {
