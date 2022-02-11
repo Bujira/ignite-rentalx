@@ -2,16 +2,14 @@
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { ICreateRentalDTO } from "@modules/rentals/typings/ICreateRentalDTO";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
-
-dayjs.extend(utc);
 
 class CreateRentalUseCase {
   constructor(
     private rentalsRepository: IRentalsRepository,
+    private dateProvider: IDateProvider,
   ) { }
   async execute({
     car_id,
@@ -38,17 +36,9 @@ class CreateRentalUseCase {
       throw new AppError("User is currently renting a car!", 400);
     }
 
-    const dateNow = dayjs()
-      .utc()
-      .local()
-      .format();
+    const dateNow = this.dateProvider.dateNow();
 
-    const expectedReturnDateFormat = dayjs(expected_return_date)
-      .utc()
-      .local()
-      .format();
-
-    const compare = dayjs(expectedReturnDateFormat).diff(dateNow, "hours");
+    const compare = this.dateProvider.compareInHours(dateNow, expected_return_date)
 
     if (compare < minimumRentingTime) {
       throw new AppError("Rental must have a duration of at least 24 hours", 400);
