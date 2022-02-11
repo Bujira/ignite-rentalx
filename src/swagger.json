@@ -15,7 +15,7 @@
           "Category"
         ],
         "summary": "Create Category",
-        "description": "Create a new car category (Hatch, Sedan, SUV, etc.)",
+        "description": "Create a new car category (Hatch, Sedan, SUV, et)",
         "requestBody": {
           "content": {
             "application/json": {
@@ -103,7 +103,7 @@
           "Specification"
         ],
         "summary": "Create Specification",
-        "description": "Create a new car specification (manual, automatic, four-wheel drive, etc.)",
+        "description": "Create a new car specification (manual, automatic, four-wheel drive, et)",
         "requestBody": {
           "content": {
             "application/json": {

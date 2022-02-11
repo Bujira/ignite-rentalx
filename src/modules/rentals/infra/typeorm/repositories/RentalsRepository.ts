@@ -22,7 +22,7 @@ class RentalsRepository implements IRentalsRepository {
       car_id,
       user_id,
       expected_return_date,
-      start_date: new Date(),
+      // start_date: new Date(),
     });
 
     await this.repository.save(rental);
@@ -33,7 +33,7 @@ class RentalsRepository implements IRentalsRepository {
   async getRentalAvailabilityByCar({
     car_id,
   }: IGetRentalAvailabilityByCarDTO): Promise<Rental> {
-    const rental = await this.repository.findOne(car_id);
+    const rental = await this.repository.findOne({ car_id });
 
     return rental;
   }
@@ -41,7 +41,7 @@ class RentalsRepository implements IRentalsRepository {
   async getRentalAvailabilityByUser({
     user_id,
   }: IGetRentalAvailabilityByUserDTO): Promise<Rental> {
-    const rental = await this.repository.findOne(user_id);
+    const rental = await this.repository.findOne({ user_id });
 
     return rental;
   }
