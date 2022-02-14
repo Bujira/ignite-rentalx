@@ -8,7 +8,7 @@ import createConnection from "@shared/infra/typeorm";
 
 let connection: Connection;
 
-describe("Create Category Controller", () => {
+describe("Get All Categories Controller", () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
@@ -23,7 +23,7 @@ describe("Create Category Controller", () => {
     );
   });
 
-  it("Should be able to create a new car category", async () => {
+  it("Should be able to list all car categories", async () => {
     const responseToken = await request(app).post("/auth").send({
       email: "admin@rentalx.com",
       password: "admin",
@@ -31,38 +31,31 @@ describe("Create Category Controller", () => {
 
     const { token } = responseToken.body.token;
 
-    const response = await request(app)
+    await request(app)
       .post("/categories")
       .send({
-        name: "SuperTest - Category Name",
-        description: "SuperTest - Category Description",
+        name: "SuperTest - Category Name 1",
+        description: "SuperTest - Category Description 1",
       })
       .set({
         Authorization: `Bearer ${token}`,
       });
 
-    expect(response.status).toBe(201);
-  });
-
-  it("Should not be able to create an existing car category", async () => {
-    const responseToken = await request(app).post("/auth").send({
-      email: "admin@rentalx.com",
-      password: "admin",
-    });
-
-    const { token } = responseToken.body.token;
-
-    const response = await request(app)
+    await request(app)
       .post("/categories")
       .send({
-        name: "SuperTest - Category Name",
-        description: "SuperTest - Category Description",
+        name: "SuperTest - Category Name 2",
+        description: "SuperTest - Category Description 2",
       })
       .set({
         Authorization: `Bearer ${token}`,
       });
 
-    expect(response.status).toBe(400);
+    const response = await request(app).get("/categories");
+
+    expect(response.status).toBe(200);
+    expect(response.body.result).toHaveLength(2);
+    expect(response.body.result[0].name).toEqual("SuperTest - Category Name 1");
   });
 
   afterAll(async () => {
