@@ -1,6 +1,7 @@
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 import { ICreateRentalDTO } from "@modules/rentals/typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "@modules/rentals/typings/IGetRentalByCarDTO";
+import { IGetRentalByIdDTO } from "@modules/rentals/typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "@modules/rentals/typings/IGetRentalByUserDTO";
 import { getRepository, Repository } from "typeorm";
 
@@ -33,7 +34,7 @@ class RentalsRepository implements IRentalsRepository {
   async getRentalAvailabilityByCar({
     car_id,
   }: IGetRentalAvailabilityByCarDTO): Promise<Rental> {
-    const rental = await this.repository.findOne({ car_id });
+    const rental = await this.repository.findOne(car_id);
 
     return rental;
   }
@@ -41,7 +42,13 @@ class RentalsRepository implements IRentalsRepository {
   async getRentalAvailabilityByUser({
     user_id,
   }: IGetRentalAvailabilityByUserDTO): Promise<Rental> {
-    const rental = await this.repository.findOne({ user_id });
+    const rental = await this.repository.findOne(user_id);
+
+    return rental;
+  }
+
+  async getById({ id }: IGetRentalByIdDTO): Promise<Rental> {
+    const rental = await this.repository.findOne(id);
 
     return rental;
   }

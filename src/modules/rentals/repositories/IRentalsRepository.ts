@@ -1,6 +1,7 @@
 import { Rental } from "../infra/typeorm/entities/Rental";
 import { ICreateRentalDTO } from "../typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "../typings/IGetRentalByCarDTO";
+import { IGetRentalByIdDTO } from "../typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "../typings/IGetRentalByUserDTO";
 
 interface IRentalsRepository {
@@ -15,6 +16,7 @@ interface IRentalsRepository {
   getRentalAvailabilityByUser({
     user_id,
   }: IGetRentalAvailabilityByUserDTO): Promise<Rental>;
+  getById({ id }: IGetRentalByIdDTO): Promise<Rental>;
 }
 
 export { IRentalsRepository };

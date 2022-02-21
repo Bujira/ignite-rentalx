@@ -17,10 +17,10 @@ RN => Business Rules
 
 # Listing Registered Cars
 **RF**
-[] It should be possible to list all available cars.
-[] It should be possible to list all available cars by name.
-[] It should be possible to list all available cars by category.
-[] It should be possible to list all available cars by brand.
+[x] It should be possible to list all available cars.
+[x] It should be possible to list all available cars by name.
+[x] It should be possible to list all available cars by category.
+[x] It should be possible to list all available cars by brand.
 
 **RN**
 An user does not need to be logged in to list all available cars.
@@ -55,17 +55,18 @@ It should be possible to register multiple images for the same car.
 [x] The minimun duration of a rental must be 24 hours.
 [x] Should not be able to register a new car rental for an user already renting a car.
 [x] Should not be able to register a new car rental for a non available car.
-[] Once a rental is created, the car status should change to unavailable.
+[x] Once a rental is created, the car status should change to unavailable.
 
 # Returning a Car
 
 **RF**
-[ ] It should be possible to return a car.
+[x] It should be possible to return a car.
 
 **RN**
-[] If a car is returned within 24 hrs, a full 24hrs fee must be charged.
-[] Once returned, the car must be set as available for rent.
-[] Once returner, the user must be listed with no current rental.
-[] Once returned, the total amount due must be calculated.
-[] If the car is returned after the expected date, fees must be calculated according to the number of late days.
-[] If the car is returned after the expected date, the calculated fee must be added to the total.
+[x] If a car is returned within 24 hrs, a full 24hrs fee must be charged.
+[x] Once returned, the car must be set as available for rent.
+[] Once returned, the user must be listed with no current rental.
+[x] Once returned, the total amount due must be calculated.
+[x] If the car is returned after the expected date, a fee must be calculated according to the number of late days.
+[x] If the car is returned after the expected date, the calculated fee must be added to the total.
+[] User must be logged in to return a car.

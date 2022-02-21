@@ -1,6 +1,7 @@
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { ICreateRentalDTO } from "@modules/rentals/typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "@modules/rentals/typings/IGetRentalByCarDTO";
+import { IGetRentalByIdDTO } from "@modules/rentals/typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "@modules/rentals/typings/IGetRentalByUserDTO";
 
 import { IRentalsRepository } from "../IRentalsRepository";
@@ -43,6 +44,12 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     const rental = this.rentals.find(
       (rental) => rental.user_id === user_id && !rental.end_date
     );
+
+    return rental;
+  }
+
+  async getById({ id }: IGetRentalByIdDTO): Promise<Rental> {
+    const rental = this.rentals.find((rental) => rental.id === id);
 
     return rental;
   }
