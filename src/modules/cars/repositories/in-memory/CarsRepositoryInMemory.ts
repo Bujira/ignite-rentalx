@@ -3,6 +3,7 @@ import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
 import { IGetByIdDTO } from "@modules/cars/typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "@modules/cars/typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "@modules/cars/typings/IGetCarDTO";
+import { IUpdateCarStatusDTO } from "@modules/cars/typings/IUpdateCarStatusDTO";
 
 import { ICarsRepository } from "../ICarsRepository";
 
@@ -65,6 +66,20 @@ class CarsRepositoryInMemory implements ICarsRepository {
     });
 
     return cars;
+  }
+
+  async updateStatus({ id, available }: IUpdateCarStatusDTO): Promise<Car> {
+    const findIndex = this.cars.findIndex((car) => car.id === id);
+
+    const car = this.cars[findIndex];
+
+    if (car) {
+      car.available = available;
+
+      return car;
+    }
+
+    return null;
   }
 }
 

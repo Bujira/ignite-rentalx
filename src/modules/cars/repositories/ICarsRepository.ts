@@ -3,6 +3,7 @@ import { ICreateCarDTO } from "../typings/ICreateCarDTO";
 import { IGetByIdDTO } from "../typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "../typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "../typings/IGetCarDTO";
+import { IUpdateCarStatusDTO } from "../typings/IUpdateCarStatusDTO";
 
 interface ICarsRepository {
   create({
@@ -19,6 +20,7 @@ interface ICarsRepository {
   getByLicensePlate({ license_plate }: IGetByLicensePlateDTO): Promise<Car>;
   getById({ car_id }: IGetByIdDTO): Promise<Car>;
   getAllAvailable({ name, brand, category_id }: IGetCarDTO): Promise<Car[]>;
+  updateStatus({ id, available }: IUpdateCarStatusDTO): Promise<Car>;
 }
 
 export { ICarsRepository };

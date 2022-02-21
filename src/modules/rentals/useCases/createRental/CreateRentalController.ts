@@ -16,8 +16,6 @@ class CreateRentalController {
       expected_return_date,
     });
 
-    console.log("controller!!!");
-
     return response.status(201).json({ message: "Success!", result });
   }
 }

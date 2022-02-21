@@ -3,6 +3,7 @@ import { ICreateCarDTO } from "@modules/cars/typings/ICreateCarDTO";
 import { IGetByIdDTO } from "@modules/cars/typings/IGetByIdDTO";
 import { IGetByLicensePlateDTO } from "@modules/cars/typings/IGetByLicensePlateDTO";
 import { IGetCarDTO } from "@modules/cars/typings/IGetCarDTO";
+import { IUpdateCarStatusDTO } from "@modules/cars/typings/IUpdateCarStatusDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { Car } from "../entities/Car";
@@ -79,6 +80,22 @@ class CarsRepository implements ICarsRepository {
     const cars = await carsQuery.getMany();
 
     return cars;
+  }
+
+  async updateStatus({ id, available }: IUpdateCarStatusDTO): Promise<Car> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where("id = :id")
+      .setParameters({ id })
+      .execute();
+
+    const car_id = id;
+
+    const car = this.getById({ car_id });
+
+    return car;
   }
 }
 
