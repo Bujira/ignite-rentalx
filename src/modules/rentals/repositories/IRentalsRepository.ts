@@ -6,9 +6,12 @@ import { IGetRentalAvailabilityByUserDTO } from "../typings/IGetRentalByUserDTO"
 
 interface IRentalsRepository {
   create({
+    id,
     car_id,
     user_id,
+    end_date,
     expected_return_date,
+    total,
   }: ICreateRentalDTO): Promise<Rental>;
   getRentalAvailabilityByCar({
     car_id,
