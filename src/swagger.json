@@ -16,6 +16,11 @@
         ],
         "summary": "Create Category",
         "description": "Create a new car category (Hatch, Sedan, SUV, et)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -75,6 +80,11 @@
         ],
         "summary": "Upload Categories",
         "description": "Upload categories from an external source/file",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -104,6 +114,11 @@
         ],
         "summary": "Create Specification",
         "description": "Create a new car specification (manual, automatic, four-wheel drive, et)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -155,6 +170,55 @@
           }
         }
       }
+    },
+    "/auth": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Authenticate User",
+        "description": "Authenticate a user generating a JWT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Authentication"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user or password!"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -178,6 +242,26 @@
         "description": {
           "type": "string"
         }
+      }
+    },
+    "Authentication": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
