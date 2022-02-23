@@ -3,6 +3,7 @@ import { ICreateRentalDTO } from "@modules/rentals/typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "@modules/rentals/typings/IGetRentalByCarDTO";
 import { IGetRentalByIdDTO } from "@modules/rentals/typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "@modules/rentals/typings/IGetRentalByUserDTO";
+import { IGetRentalsByUserDTO } from "@modules/rentals/typings/IGetRentalsByUserDTO";
 
 import { IRentalsRepository } from "../IRentalsRepository";
 
@@ -58,6 +59,14 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     const rental = this.rentals.find((rental) => rental.id === id);
 
     return rental;
+  }
+
+  async getAllByUser({ user_id }: IGetRentalsByUserDTO): Promise<Rental[]> {
+    const rentals = this.rentals.filter(
+      (rentals) => rentals.user_id === user_id
+    );
+
+    return rentals;
   }
 }
 

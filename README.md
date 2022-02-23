@@ -69,4 +69,12 @@ It should be possible to register multiple images for the same car.
 [x] Once returned, the total amount due must be calculated.
 [x] If the car is returned after the expected date, a fee must be calculated according to the number of late days.
 [x] If the car is returned after the expected date, the calculated fee must be added to the total.
-[] User must be logged in to return a car.
+[x] User must be logged in to return a car.
+
+# Listing User Rentals
+
+**RF**
+[x] It should be possible lo list an user's rentals.
+
+**RN**
+[] User must be logged in to lis his rentals.

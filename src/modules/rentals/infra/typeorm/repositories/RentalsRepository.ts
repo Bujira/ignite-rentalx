@@ -3,6 +3,7 @@ import { ICreateRentalDTO } from "@modules/rentals/typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "@modules/rentals/typings/IGetRentalByCarDTO";
 import { IGetRentalByIdDTO } from "@modules/rentals/typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "@modules/rentals/typings/IGetRentalByUserDTO";
+import { IGetRentalsByUserDTO } from "@modules/rentals/typings/IGetRentalsByUserDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { Rental } from "../entities/Rental";
@@ -66,6 +67,15 @@ class RentalsRepository implements IRentalsRepository {
     const rental = await this.repository.findOne(id);
 
     return rental;
+  }
+
+  async getAllByUser({ user_id }: IGetRentalsByUserDTO): Promise<Rental[]> {
+    const rentals = await this.repository.find({
+      where: {
+        user_id,
+      },
+    });
+    return rentals;
   }
 }
 

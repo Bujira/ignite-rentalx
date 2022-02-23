@@ -3,6 +3,7 @@ import { ICreateRentalDTO } from "../typings/ICreateRentalDTO";
 import { IGetRentalAvailabilityByCarDTO } from "../typings/IGetRentalByCarDTO";
 import { IGetRentalByIdDTO } from "../typings/IGetRentalByIdDTO";
 import { IGetRentalAvailabilityByUserDTO } from "../typings/IGetRentalByUserDTO";
+import { IGetRentalsByUserDTO } from "../typings/IGetRentalsByUserDTO";
 
 interface IRentalsRepository {
   create({
@@ -20,6 +21,7 @@ interface IRentalsRepository {
     user_id,
   }: IGetRentalAvailabilityByUserDTO): Promise<Rental>;
   getById({ id }: IGetRentalByIdDTO): Promise<Rental>;
+  getAllByUser({ user_id }: IGetRentalsByUserDTO): Promise<Rental[]>;
 }
 
 export { IRentalsRepository };
