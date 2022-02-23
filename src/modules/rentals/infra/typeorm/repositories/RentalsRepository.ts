@@ -74,6 +74,7 @@ class RentalsRepository implements IRentalsRepository {
       where: {
         user_id,
       },
+      relations: ["car"],
     });
     return rentals;
   }
