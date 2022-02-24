@@ -9,6 +9,131 @@
     }
   },
   "paths": {
+    "/auth": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Authenticate User",
+        "description": "Authenticate a user generating a JWT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AuthenticationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/AuthenticationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user or password!"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Create Car",
+        "description": "Create a new car entry available for rental",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CarRequest",
+                "example": {
+                  "name": "car name sample",
+                  "description": "car description sample",
+                  "daily_rate": "car daily rate sample",
+                  "license_plate": "car license plate sample",
+                  "fine_amount": "car fine amount sample",
+                  "brand": "car brand sample",
+                  "category_id": "car category id sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Car already exists!"
+          }
+        }
+      }
+    },
+    "/cars/available": {
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Get Available Cars",
+        "description": "List all available cars for rental",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CarResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": [
@@ -25,7 +150,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Category",
+                "$ref": "#/definitions/CategoryRequest",
                 "example": {
                   "name": "category name sample",
                   "description": "category description sample"
@@ -40,12 +165,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Category"
+                  "$ref": "#/definitions/CategoryResponse"
                 }
               }
             }
           },
-          "500": {
+          "400": {
             "description": "Category already exists!"
           }
         }
@@ -54,17 +179,17 @@
         "tags": [
           "Category"
         ],
-        "summary": "Get All Categories",
-        "description": "List all categories already registered in the data base",
+        "summary": "Get All Categoris",
+        "description": "List all car categories already registered in the data base",
         "responses": {
           "200": {
             "description": "Success!",
             "content": {
               "application/json": {
-                "shcema": {
+                "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Category"
+                    "$ref": "#/definitions/CategoryResponse"
                   }
                 }
               }
@@ -123,7 +248,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Specification",
+                "$ref": "#/definitions/SpecificationRequest",
                 "example": {
                   "name": "specification name sample",
                   "description": "specification description sample"
@@ -138,7 +263,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/Specification"
+                  "$ref": "#/definitions/SpecificationResponse"
                 }
               }
             }
@@ -162,95 +287,157 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/definitions/Specification"
+                    "$ref": "#/definitions/SpecificationResponse"
                   }
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/auth": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Authenticate User",
-        "description": "Authenticate a user generating a JWT",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/definitions/Authentication"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success!",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        }
-                      }
-                    },
-                    "token": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid user or password!"
           }
         }
       }
     }
   },
   "definitions": {
-    "Category": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      }
-    },
-    "Specification": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      }
-    },
-    "Authentication": {
+    "AuthenticationRequest": {
       "type": "object",
       "properties": {
         "email": {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticationResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "CarRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        }
+      }
+    },
+    "CarResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoryRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoryResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "SpecificationRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "SpecificationResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
           "type": "string"
         }
       }
