@@ -35,34 +35,33 @@ describe("Authenticate User", () => {
   });
 
   it("Should not be able to authenticate an user with invalid email", async () => {
-    expect(async () => {
-      await createUserUseCase.execute({
-        name: "John Doe",
-        email: "john@doe.com",
-        password: "1234",
-        drivers_license: "123456789",
-      });
+    await createUserUseCase.execute({
+      name: "John Doe",
+      email: "john@doe.com",
+      password: "1234",
+      drivers_license: "123456789",
+    });
 
-      await authenticateUserUseCase.execute({
+    await expect(
+      authenticateUserUseCase.execute({
         email: "joao@doe.com",
         password: "1234",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Invalid user or password!"));
   });
 
   it("Should not be able to authenticate an user with invalid password", async () => {
-    expect(async () => {
-      await createUserUseCase.execute({
-        name: "John Doe",
-        email: "john@doe.com",
-        password: "1234",
-        drivers_license: "123456789",
-      });
-
-      await authenticateUserUseCase.execute({
+    await createUserUseCase.execute({
+      name: "John Doe",
+      email: "john@doe.com",
+      password: "1234",
+      drivers_license: "123456789",
+    });
+    await expect(
+      authenticateUserUseCase.execute({
         email: "john@doe.com",
         password: "0000",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Invalid user or password!"));
   });
 });

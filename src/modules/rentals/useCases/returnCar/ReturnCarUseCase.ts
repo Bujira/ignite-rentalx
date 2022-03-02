@@ -30,7 +30,7 @@ class ReturnCarUseCase {
     const dateNow = this.dateProvider.dateNow();
 
     if (rental.end_date) {
-      throw new AppError("This rental is over. The car has been returned already!", 400);
+      throw new AppError("This rental is over. The car has been returned already!");
     }
 
     let rentingDays = this.dateProvider.compareInDays(

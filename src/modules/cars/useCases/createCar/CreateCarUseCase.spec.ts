@@ -28,18 +28,17 @@ describe("Create Car", () => {
   });
 
   it("Should not be able to register more than one car with same license plate", async () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        name: "Test - Create Car Name A",
-        description: "Test - Create Car Description A",
-        daily_rate: 100,
-        license_plate: "AAA123",
-        fine_amount: 60,
-        brand: "Test - Create Car Brand A",
-        category_id: "Test - Create Car Category A",
-      });
-
-      await createCarUseCase.execute({
+    await createCarUseCase.execute({
+      name: "Test - Create Car Name A",
+      description: "Test - Create Car Description A",
+      daily_rate: 100,
+      license_plate: "AAA123",
+      fine_amount: 60,
+      brand: "Test - Create Car Brand A",
+      category_id: "Test - Create Car Category A",
+    });
+    await expect(
+      createCarUseCase.execute({
         name: "Test - Create Car Name B",
         description: "Test - Create Car Description B",
         daily_rate: 200,
@@ -47,8 +46,8 @@ describe("Create Car", () => {
         fine_amount: 120,
         brand: "Test - Create Car Brand B",
         category_id: "Test - Create Car Category B",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car already exists!"));
   });
 
   it("A car should be registered as available by default", async () => {

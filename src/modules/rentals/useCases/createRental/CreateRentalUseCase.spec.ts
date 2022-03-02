@@ -28,8 +28,18 @@ describe("Create Rental", () => {
   });
 
   it("Should create a rental for a specific car", async () => {
+    const car = await carsRepository.create({
+      name: "Test - Create Car Name",
+      description: "Test - Create Car Description",
+      daily_rate: 100,
+      license_plate: "ABC123",
+      fine_amount: 60,
+      brand: "Test - Create Car Brand",
+      category_id: "Test - Create Car Category",
+    });
+
     const rental = await createRentalUseCase.execute({
-      car_id: "Test - Car ID",
+      car_id: car.id,
       user_id: "Test - User ID",
       expected_return_date: add24hrs,
     });
@@ -39,42 +49,44 @@ describe("Create Rental", () => {
   });
 
   it("Should not be able to rent a car that is already being rented", async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
-        car_id: "Test - Car ID",
-        user_id: "Test - User ID 1",
-        expected_return_date: add24hrs,
-      });
-      await createRentalUseCase.execute({
+    await rentalsRepository.create({
+      car_id: "Test - Car ID",
+      user_id: "Test - User ID",
+      expected_return_date: add24hrs,
+    });
+    await expect(
+      createRentalUseCase.execute({
         car_id: "Test - Car ID",
         user_id: "Test - User ID 2",
         expected_return_date: add24hrs,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car is currently being rented!"));
   });
 
   it("Should not be able to rent a car if the user is already renting one", async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
-        car_id: "Test - Car ID 1",
-        user_id: "Test - User ID",
-        expected_return_date: add24hrs,
-      });
-      await createRentalUseCase.execute({
+    await rentalsRepository.create({
+      car_id: "Test - Car ID 1",
+      user_id: "Test - User ID",
+      expected_return_date: add24hrs,
+    });
+    await expect(
+      createRentalUseCase.execute({
         car_id: "Test - Car ID 2",
         user_id: "Test - User ID",
         expected_return_date: add24hrs,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("User is currently renting a car!"));
   });
 
   it("Should not be able to rent a car for less than 24hrs", async () => {
-    expect(async () => {
-      await createRentalUseCase.execute({
-        car_id: "Test - Car ID 1",
+    await expect(
+      createRentalUseCase.execute({
+        car_id: "Test - Car ID",
         user_id: "Test - User ID",
         expected_return_date: lessThan24hrs,
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(
+      new AppError("Rental must have a duration of at least 24 hours")
+    );
   });
 });

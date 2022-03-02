@@ -47,16 +47,16 @@ describe("Create Car Specification", () => {
     expect(updatedCar.specifications).toHaveLength(1);
   });
 
-  // it("Should not be able to add specifications to a non existing car", async () => {
-  //   expect(async () => {
-  //     await createCarSpecificationUseCase.execute({
-  //       car_id: "Test - Car ID",
-  //       specifications_id: [
-  //         "Test - Specification ID 1",
-  //         "Test - Specification ID 2",
-  //         "Test - Specification ID 3",
-  //       ],
-  //     });
-  //   }).rejects.toBeInstanceOf(AppError);
-  // });
+  it("Should not be able to add specifications to a non existing car", async () => {
+    await expect(
+      createCarSpecificationUseCase.execute({
+        car_id: "Test - Car ID",
+        specifications_id: [
+          "Test - Specification ID 1",
+          "Test - Specification ID 2",
+          "Test - Specification ID 3",
+        ],
+      })
+    ).rejects.toEqual(new AppError("Car does not exist!", 404));
+  });
 });

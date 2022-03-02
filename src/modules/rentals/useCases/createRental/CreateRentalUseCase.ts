@@ -31,13 +31,13 @@ class CreateRentalUseCase {
     const carUnavailable = await this.rentalsRepository.getRentalAvailabilityByCar({ car_id });
 
     if (carUnavailable) {
-      throw new AppError("Car is currently being rented!", 400);
+      throw new AppError("Car is currently being rented!");
     }
 
     const userCurrentlyRenting = await this.rentalsRepository.getRentalAvailabilityByUser({ user_id });
 
     if (userCurrentlyRenting) {
-      throw new AppError("User is currently renting a car!", 400);
+      throw new AppError("User is currently renting a car!");
     }
 
     const dateNow = this.dateProvider.dateNow();
@@ -45,7 +45,7 @@ class CreateRentalUseCase {
     const compare = this.dateProvider.compareInHours(dateNow, expected_return_date)
 
     if (compare < minimumRentingTime) {
-      throw new AppError("Rental must have a duration of at least 24 hours", 400);
+      throw new AppError("Rental must have a duration of at least 24 hours");
     }
 
     const rental = await this.rentalsRepository.create({
