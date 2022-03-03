@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
+import auth from "@config/auth";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { IUserTokensRepository } from "@modules/accounts/repositories/IUserTokensRepository";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
 import {
@@ -15,13 +18,24 @@ import {
 class AuthenticateUserUseCase {
   constructor(
     @inject("UsersRepository")
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject("UserTokensRepository")
+    private userTokensRepository: IUserTokensRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider: IDateProvider
   ) { }
   async execute({
     email,
     password,
   }: IAuthenticateRequest): Promise<IAuthenticateResponse> {
     const user = await this.usersRepository.getByEmail({ email });
+    const {
+      token_secret,
+      token_expiration,
+      refresh_token_secret,
+      refresh_token_expiration,
+      refresh_token_expiration_in_days
+    } = auth;
 
     if (!user) {
       throw new AppError("Invalid user or password!");
@@ -33,10 +47,23 @@ class AuthenticateUserUseCase {
       throw new AppError("Invalid user or password!");
     }
 
-    const token = sign({}, "22cc62deef066466c6ff6ef9385cdbb6", {
+    const token = sign({}, token_secret, {
       subject: user.id,
-      expiresIn: "1d",
+      expiresIn: token_expiration,
     });
+
+    const refresh_token = sign({ email }, refresh_token_secret, {
+      subject: user.id,
+      expiresIn: refresh_token_expiration,
+    });
+
+    const expiration_date = this.dateProvider.addDays(refresh_token_expiration_in_days)
+
+    await this.userTokensRepository.create({
+      user_id: user.id,
+      refresh_token,
+      expiration_date
+    })
 
     const tokenReturn: IAuthenticateResponse = {
       user: {
@@ -44,6 +71,7 @@ class AuthenticateUserUseCase {
         email: user.email,
       },
       token,
+      refresh_token
     };
 
     return tokenReturn;

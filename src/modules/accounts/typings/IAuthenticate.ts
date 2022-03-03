@@ -9,6 +9,7 @@ interface IAuthenticateResponse {
     email: string;
   };
   token: string;
+  refresh_token: string;
 }
 
 interface IAuthenticatePayload {

@@ -1,7 +1,7 @@
 import { UserToken } from "../infra/typeorm/entities/UserToken";
 import { ICreateUserTokenDTO } from "../typings/ICreateUserTokenDTO";
 
-interface IUserTokenRepository {
+interface IUserTokensRepository {
   create({
     user_id,
     refresh_token,
@@ -9,4 +9,4 @@ interface IUserTokenRepository {
   }: ICreateUserTokenDTO): Promise<UserToken>;
 }
 
-export { IUserTokenRepository };
+export { IUserTokensRepository };
