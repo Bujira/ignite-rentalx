@@ -77,4 +77,15 @@ It should be possible to register multiple images for the same car.
 [x] It should be possible lo list an user's rentals.
 
 **RN**
-[] User must be logged in to lis his rentals.
+[x] User must be logged in to lis his rentals.
+
+# Password Revocery
+
+**RF**
+[] It should be able to recover a misplaced password with an user's email
+[] It should be able to send an e-mail to the user with a step-by-step guide to revocer the password
+[] It should be able to let the user create a new password
+
+**RN**
+[] User must provide a new password
+[] The recovery link must expire after 3 hours
