@@ -1,3 +1,5 @@
+import fs from "fs";
+import handlebars from "handlebars";
 import nodemailer, { Transporter } from "nodemailer";
 import { injectable } from "tsyringe";
 
@@ -24,20 +26,23 @@ class MailTrapMailProvider implements IMailProvider {
       })
       .catch((err) => console.log(err));
   }
-  async sendMail({ to, subject, body }: ISendMailParams): Promise<void> {
+  async sendMail({
+    to,
+    subject,
+    params,
+    path,
+  }: ISendMailParams): Promise<void> {
+    const templateFileContent = fs.readFileSync(path).toString("utf-8");
+
+    const templateParse = handlebars.compile(templateFileContent);
+
+    const templateHTML = templateParse(params);
+
     const message = await this.client.sendMail({
       to,
       from: "Rentalx <noreply@rentalx.com.br>",
       subject,
-      text: body,
-      html: body,
-      attachments: [
-        {
-          filename: "mailtest.jpeg",
-          path: `${__dirname}/mailtest.jpeg`,
-          cid: "uniq-mailtest.jpeg",
-        },
-      ],
+      html: templateHTML,
     });
 
     console.log("Message sent: %s", message.messageId);
