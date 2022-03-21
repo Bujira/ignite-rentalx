@@ -5,6 +5,7 @@ import { IGetUserByIdDTO } from "../typings/IGetUserByIdDTO";
 
 interface IUsersRepository {
   create({
+    id,
     name,
     password,
     email,

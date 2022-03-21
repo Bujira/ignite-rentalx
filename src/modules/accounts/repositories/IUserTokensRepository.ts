@@ -2,6 +2,7 @@ import { UserToken } from "../infra/typeorm/entities/UserToken";
 import { ICreateUserTokenDTO } from "../typings/ICreateUserTokenDTO";
 import { IDeleteTokenByIdDTO } from "../typings/IDeleteTokenByIdDTO";
 import { IGetTokenByUserIdAndRefreshTokenDTO } from "../typings/IGetTokenByUserIdAndRefreshTokenDTO";
+import { IGetUserTokenByRefreshTokenDTO } from "../typings/IGetUserTokenByRefreshTokenDTO";
 
 interface IUserTokensRepository {
   create({
@@ -13,6 +14,9 @@ interface IUserTokensRepository {
     user_id,
     token,
   }: IGetTokenByUserIdAndRefreshTokenDTO): Promise<UserToken>;
+  getByRefreshToken({
+    token,
+  }: IGetUserTokenByRefreshTokenDTO): Promise<UserToken>;
   deleteById({ token_id }: IDeleteTokenByIdDTO): Promise<void>;
 }
 

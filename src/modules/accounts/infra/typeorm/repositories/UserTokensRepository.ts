@@ -2,6 +2,7 @@ import { IUserTokensRepository } from "@modules/accounts/repositories/IUserToken
 import { ICreateUserTokenDTO } from "@modules/accounts/typings/ICreateUserTokenDTO";
 import { IDeleteTokenByIdDTO } from "@modules/accounts/typings/IDeleteTokenByIdDTO";
 import { IGetTokenByUserIdAndRefreshTokenDTO } from "@modules/accounts/typings/IGetTokenByUserIdAndRefreshTokenDTO";
+import { IGetUserTokenByRefreshTokenDTO } from "@modules/accounts/typings/IGetUserTokenByRefreshTokenDTO";
 import { getRepository, Repository } from "typeorm";
 
 import { UserToken } from "../entities/UserToken";
@@ -36,6 +37,12 @@ class UserTokensRepository implements IUserTokensRepository {
       user_id,
       refresh_token: token,
     });
+  }
+
+  async getByRefreshToken({
+    token,
+  }: IGetUserTokenByRefreshTokenDTO): Promise<UserToken> {
+    return this.repository.findOne({ refresh_token: token });
   }
 
   async deleteById({ token_id }: IDeleteTokenByIdDTO): Promise<void> {
