@@ -29,7 +29,7 @@ describe("Get All Categories Controller", () => {
       password: "admin",
     });
 
-    const { token } = responseToken.body.token;
+    const { refresh_token } = responseToken.body.token;
 
     await request(app)
       .post("/categories")
@@ -38,7 +38,7 @@ describe("Get All Categories Controller", () => {
         description: "SuperTest - Category Description 1",
       })
       .set({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${refresh_token}`,
       });
 
     await request(app)
@@ -48,7 +48,7 @@ describe("Get All Categories Controller", () => {
         description: "SuperTest - Category Description 2",
       })
       .set({
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${refresh_token}`,
       });
 
     const response = await request(app).get("/categories");
