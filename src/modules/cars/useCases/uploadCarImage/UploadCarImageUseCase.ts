@@ -3,6 +3,7 @@ import { CarImagesRepository } from "@modules/cars/infra/typeorm/repositories/Ca
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { inject, injectable } from "tsyringe";
 
+import { IStorageProvider } from "@shared/container/providers/StorageProvider/IStorageProvider";
 import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
@@ -16,7 +17,9 @@ class UploadCarImageUseCase {
     @inject("CarsRepository")
     private carsRepository: CarsRepository,
     @inject("CarImagesRepository")
-    private carImagesRepository: CarImagesRepository
+    private carImagesRepository: CarImagesRepository,
+    @inject("StorageProvider")
+    private storageProvider: IStorageProvider
   ) { }
   async execute({ image_names, car_id }: IRequest): Promise<void> {
     const car = await this.carsRepository.getById({ car_id })
@@ -29,7 +32,8 @@ class UploadCarImageUseCase {
       await this.carImagesRepository.create({
         image_name: image,
         car_id,
-      })
+      });
+      await this.storageProvider.save(image, "cars");
     })
   }
 }
