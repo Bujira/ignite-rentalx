@@ -1,0 +1,592 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "RentalX Documentation",
+    "description": "API for a car rental service",
+    "version": "1.0.0",
+    "contact": {
+      "email": "yurifcorrea@gmail.com"
+    }
+  },
+  "paths": {
+    "/auth": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Authenticate User",
+        "description": "Authenticate a user generating a JWT",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/AuthenticationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/AuthenticationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user or password!"
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Create Car",
+        "description": "Create a new car entry available for rental",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CarRequest",
+                "example": {
+                  "name": "car name sample",
+                  "description": "car description sample",
+                  "daily_rate": "car daily rate sample",
+                  "license_plate": "car license plate sample",
+                  "fine_amount": "car fine amount sample",
+                  "brand": "car brand sample",
+                  "category_id": "car category id sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Car already exists!"
+          }
+        }
+      }
+    },
+    "/cars/available": {
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Get Available Cars",
+        "description": "List all available cars for rental",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter all available cars by name"
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter all available cars by brand"
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter all available cars by category"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CarResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/specifications/{id}": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Create Car Specification",
+        "description": "Create a new specification for a given car",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Car ID",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CarSpecificationRequest",
+                "example": {
+                  "specifications_id": [
+                    "car specification id sample 1",
+                    "car specification id sample 2",
+                    "car specification id sample 3"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CarResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car does not exist!"
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "summary": "Upload Car Images",
+        "description": "Upload car images for a given car",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "shcmea": {
+              "type": "string"
+            },
+            "description": "Car ID",
+            "requeired": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/definitions/UploadCarImageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/UploadCarImageResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Car does not exist!"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Create Category",
+        "description": "Create a new car category (Hatch, Sedan, SUV, et)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CategoryRequest",
+                "example": {
+                  "name": "category name sample",
+                  "description": "category description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/CategoryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Category already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get All Categoris",
+        "description": "List all car categories already registered in the data base",
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CategoryResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Upload Categories",
+        "description": "Upload categories from an external source/file",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success!"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Create Specification",
+        "description": "Create a new car specification (manual, automatic, four-wheel drive, et)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/SpecificationRequest",
+                "example": {
+                  "name": "specification name sample",
+                  "description": "specification description sample"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/SpecificationResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Specification already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Specification"
+        ],
+        "summary": "Get All Specifications",
+        "description": "List all car specifications already registered in the data base",
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SpecificationResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthenticationRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthenticationResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "CarRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        }
+      }
+    },
+    "CarResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "daily_rate": {
+          "type": "number"
+        },
+        "license_plate": {
+          "type": "string"
+        },
+        "fine_amount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "CarSpecificationRequest": {
+      "type": "object",
+      "properties": {
+        "specifications_id": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UploadCarImageRequest": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      }
+    },
+    "UploadCarImageResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoryRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoryResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "SpecificationRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "SpecificationResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
