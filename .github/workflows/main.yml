@@ -21,9 +21,6 @@ jobs:
       - name: Install Dependencies
         run: yarn
         
-      - name: Install Problematic Dependencies
-        run: yarn add @babel/preset-typescript
-        
       - name: Build
         run: yarn build
         
