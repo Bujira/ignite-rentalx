@@ -14,17 +14,22 @@ services:
     volumes:
       - pgdata:/data/postgres
 
-  app:
-    build: .
-    container_name: rentalx
+  redis:
+    image: redis:alpine
+    container_name: redis_ignite
     ports:
-      - 3000:3000
-    volumes:
-      - .:/users/yurifcorrea/app
-    links:
-      - database_ignite
-    depends_on:
-      - database_ignite
+      - 6379:6379
+  # app:
+  #   build: .
+  #   container_name: rentalx
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - .:/users/yurifcorrea/app
+  #   links:
+  #     - database_ignite
+  #   depends_on:
+  #     - database_ignite
 
 volumes:
   pgdata:
