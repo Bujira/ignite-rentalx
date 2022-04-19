@@ -3,9 +3,9 @@
 A REST API using NodeJS, TypeScript, Express, TypeORM and Postgres.
 Other technologies employed are: jsonwebtoken, swagger, tsyringe, uuid, jest and others!
 
-RF => Functional Requisites
-RNF => Non Functional Requisites
-RN => Business Rules
+- RF => Functional Requisites
+- RNF => Non Functional Requisites
+- RN => Business Rules
 # Registering a Car
 **RF**
 - [x] It should be possible to register a new car in the database.
